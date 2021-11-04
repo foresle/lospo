@@ -1,11 +1,8 @@
 from PIL import Image
 
+
 # input_im = Image.open('input.jpg')
 # input_im = Image.open('output.png')
-
-with open('input_text.txt', 'r') as input_text_file:
-    input_txt = input_text_file.read()
-
 
 def print_pixel_opacity(image: Image):
     image = image.convert('RGBA')
@@ -37,7 +34,7 @@ def create_chess_opacity(image: Image):
     output_im.save('output.png')
 
 
-def encrypt_text(image: Image, text: str):
+def encode_text(image: Image, text: str):
     # Convert text to bit
     raw_text: list = []
 
@@ -74,7 +71,7 @@ def encrypt_text(image: Image, text: str):
     output_im.save('output.png')
 
 
-def decrypt_text(image: Image):
+def decode_text(image: Image):
     # raw_text_binary: str = ''
 
     image = image.convert('RGBA')
@@ -115,4 +112,25 @@ if __name__ == '__main__':
     # create_chess_opacity(input_im)
     # encrypt_text(input_im, input_txt)
     # decrypt_text(input_im)
-    pass
+    menu_choose: str = input('Select a menu item:\n1 - encode\n2 - decode\n> ')
+    match menu_choose:
+        case '1':
+            input('Put the image in which you want to mask the text in a folder with a program called input.png\n'
+                  'and the text in the input.txt file, then press ENTER')
+
+            with open('input.txt', 'r') as input_text_file:
+                input_txt = input_text_file.read()
+
+            input_im = Image.open('input.png')
+
+            encode_text(input_im, input_txt)
+        case '2':
+            input('Place the image to be decoded in the folder with the program output.png,\n'
+                  'press ENTER and the text will appear in the file output.txt')
+
+            input_im = Image.open('output.png')
+
+            decode_text(input_im)
+        case _:
+            print('Please try again')
+            exit(0)
