@@ -63,7 +63,7 @@ def encode_text(image: Image, text: str):
         for h in range(image_h):
             if raw_text_index < len(raw_text):
                 output_im.putpixel((w, h), (px_list[w, h][0], px_list[w, h][1],
-                                            px_list[w, h][2], 248 if bool(int(raw_text[raw_text_index])) else 249))
+                                            px_list[w, h][2], 253 if bool(int(raw_text[raw_text_index])) else 254))
                 raw_text_index += 1
             else:
                 output_im.putpixel((w, h), (px_list[w, h][0], px_list[w, h][1], px_list[w, h][2], 255))
@@ -84,9 +84,9 @@ def decode_text(image: Image):
         for h in range(image_h):
             if px_list[w, h][3] == 255:
                 pass
-            elif px_list[w, h][3] == 249:
+            elif px_list[w, h][3] == 254:
                 byte_str += '0'
-            elif px_list[w, h][3] == 248:
+            elif px_list[w, h][3] == 253:
                 byte_str += '1'
 
             if len(byte_str) == 8:
